@@ -1,0 +1,2058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Accelerated Development | Ambuj Kumar Tripathi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a40 25%, #2d1b69 50%, #44107a 75%, #8b5a83 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            animation: backgroundMove 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        @keyframes backgroundMove {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.1) rotate(180deg); opacity: 0.5; }
+        }
+
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f5ff, #1e90ff, #4169e1, #6a5acd, #9370db, #ba55d3, #ff69b4, #ff6347, #ffa500, #ffd700);
+            background-size: 500% 500%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease-in-out infinite;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+            filter: drop-shadow(0 0 20px rgba(30, 144, 255, 0.4));
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { 
+                background-position: 0% 50%; 
+                filter: hue-rotate(0deg) drop-shadow(0 0 20px rgba(30, 144, 255, 0.4));
+            }
+            50% { 
+                background-position: 100% 50%; 
+                filter: hue-rotate(180deg) drop-shadow(0 0 30px rgba(255, 105, 180, 0.6));
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            color: #e0e6ed;
+        }
+
+        .hero-author {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4ecdc4;
+            margin-bottom: 2rem;
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            font-style: italic;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            color: #96ceb4;
+        }
+
+        .power-quote {
+            background: rgba(255, 255, 255, 0.06);
+            border-left: 4px solid #4ecdc4;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-style: italic;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .power-quote::before {
+            content: '"';
+            font-size: 4rem;
+            color: #4ecdc4;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            opacity: 0.3;
+        }
+
+        /* AI Impact Dashboard */
+        .dashboard-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .input-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .input-group {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .input-group:hover {
+            border-color: rgba(78, 205, 196, 0.4);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .input-label {
+            display: block;
+            font-weight: 600;
+            color: #4ecdc4;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .input-value {
+            color: #96ceb4;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        select, input[type="range"] {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            padding: 0.8rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234ecdc4' d='M6 9L1.5 4.5h9L6 9z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        option {
+            background: #1a1a40;
+            color: white;
+        }
+
+        input[type="range"] {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 4px;
+            outline: none;
+            padding: 0;
+            margin: 0.5rem 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        /* Speedometer Gauges */
+        .gauges-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .gauge-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .gauge-container:hover {
+            transform: translateY(-5px);
+            border-color: rgba(78, 205, 196, 0.4);
+        }
+
+        .gauge {
+            width: 180px;
+            height: 180px;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .gauge-background {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 135deg,
+                #ff4444 0deg 45deg,
+                #ffaa44 45deg 90deg,
+                #44ff44 90deg 135deg,
+                #1a1a40 135deg 360deg
+            );
+            padding: 8px;
+            position: relative;
+        }
+
+        .gauge-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(26, 26, 64, 0.95) 60%, transparent 60%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-needle {
+            position: absolute;
+            width: 4px;
+            height: 70px;
+            background: linear-gradient(to top, #4ecdc4, #ffffff);
+            border-radius: 2px;
+            transform-origin: bottom center;
+            transform: rotate(135deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            top: 20px;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 2;
+            box-shadow: 0 0 8px rgba(78, 205, 196, 0.6);
+        }
+
+        .gauge-needle::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(78, 205, 196, 0.8);
+        }
+
+        .gauge-value {
+            position: absolute;
+            bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #4ecdc4;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+            z-index: 3;
+        }
+
+        .gauge-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #96ceb4;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .gauge-description {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* Timeline Comparison */
+        .timeline-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .timeline-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-card.traditional {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .timeline-card.ai {
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .timeline-title.traditional { color: #ff6b6b; }
+        .timeline-title.ai { color: #4ecdc4; }
+
+        .timeline-duration {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-duration.traditional { color: #ff6b6b; }
+        .timeline-duration.ai { color: #4ecdc4; }
+
+        .timeline-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ============================================= */
+        /* 🚀 NEW COMPANY DASHBOARD SECTION - MODIFIED TO REMOVE REVENUE */
+        /* ============================================= */
+
+        .company-dashboard-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid #ff6b35;
+        }
+
+        .company-dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .company-dashboard-title::after {
+            content: '📊';
+            position: absolute;
+            right: -50px;
+            top: 0;
+            font-size: 2rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .company-controls-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .company-control-group {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 1.2rem;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .company-control-group:hover {
+            border-color: rgba(255, 107, 53, 0.5);
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .company-control-label {
+            display: block;
+            font-weight: 600;
+            color: #ff6b35;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .company-control-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            border-radius: 8px;
+            color: white;
+            font-size: 0.95rem;
+            padding: 0.7rem;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff6b35' d='M6 9L1.5 4.5h9L6 9z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            padding-right: 2.2rem;
+        }
+
+        .company-control-select:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+        }
+
+        .company-control-select option {
+            background: #1a1a40;
+            color: white;
+            padding: 0.5rem;
+        }
+
+        .company-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .company-metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .company-metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e, #ffd700);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .company-metric-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 107, 53, 0.4);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .company-metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-metric-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ff6b35;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .company-metric-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .company-metric-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .company-metric-change {
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .company-metric-change.positive {
+            color: #4ecdc4;
+        }
+
+        .company-metric-change.negative {
+            color: #ff6b6b;
+        }
+
+        .company-chart-container {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            position: relative;
+        }
+
+        .company-chart-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff6b35;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .company-chart {
+            display: flex;
+            align-items: end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 1rem;
+            padding: 0 1rem;
+        }
+
+        .company-chart-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 80px;
+        }
+
+        .company-bar {
+            width: 100%;
+            background: linear-gradient(180deg, #ff6b35, #f7931e);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .company-bar::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(180deg, rgba(255, 107, 53, 0.5), transparent);
+            border-radius: 6px 6px 0 0;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .company-bar:hover::after {
+            opacity: 1;
+        }
+
+        .company-bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ff6b35;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .company-bar:hover .company-bar-value {
+            opacity: 1;
+            top: -30px;
+        }
+
+        .company-bar-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .company-live-indicator {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #4ecdc4;
+            font-weight: 500;
+        }
+
+        .company-live-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            animation: livePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        /* Main Content Sections */
+        .section {
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, #ffffff, #e0e6ed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .reality-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .reality-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border-color: rgba(78, 205, 196, 0.3);
+        }
+
+        .reality-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+
+        .reality-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e8e8e8;
+        }
+
+        /* Flowchart */
+        .flowchart-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flowchart {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            height: 500px;
+        }
+
+        .node {
+            position: absolute;
+            width: 160px;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+            font-weight: 600;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .node.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .node.traditional {
+            background: linear-gradient(135deg, #900, #b33);
+        }
+
+        .node.ai {
+            background: linear-gradient(135deg, #078, #0ab);
+        }
+
+        .laptop-character {
+            position: absolute;
+            top: -40px;
+            right: -30px;
+            font-size: 2rem;
+            z-index: 3;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .laptop-character.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .laptop-frustrated::after {
+            content: '';
+            animation: frustration 2s ease-in-out infinite;
+        }
+
+        .laptop-happy::after {
+            content: '';
+            animation: happiness 2s ease-in-out infinite;
+        }
+
+        @keyframes frustration {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg) scale(1.1); }
+        }
+
+        @keyframes happiness {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .line {
+            position: absolute;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            transform-origin: 0 0;
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            height: 3px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .line.show { opacity: 1; }
+
+        .line.horizontal {
+            transform: scaleX(0);
+        }
+
+        .line.horizontal.show {
+            transform: scaleX(1);
+        }
+
+        .line.vertical {
+            transform: scaleY(0);
+            width: 3px;
+        }
+
+        .line.vertical.show {
+            transform: scaleY(1);
+        }
+
+        .wins-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .win-item {
+            background: rgba(255, 255, 255, 0.12);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border-left: 4px solid #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .win-item:hover {
+            background: rgba(255, 255, 255, 0.16);
+            transform: translateX(10px);
+        }
+
+        .win-item::before {
+            content: '';
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 0.5rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(69, 183, 209, 0.1));
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: #4ecdc4;
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .controls {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            margin-top: 3rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(78, 205, 196, 0.3); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content { padding: 2rem 1.5rem; }
+            .input-panel { grid-template-columns: 1fr; }
+            .gauges-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+            .timeline-comparison { grid-template-columns: 1fr; }
+            .flowchart { height: 400px; }
+            .node { width: 150px; font-size: 0.8rem; }
+            .gauge { width: 150px; height: 150px; }
+            .company-controls-panel { grid-template-columns: 1fr; }
+            .company-metrics-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2rem; line-height: 1.2; }
+            .dashboard-section { padding: 2rem 1rem; }
+            .input-group { padding: 1rem; }
+            .flowchart { height: 350px; }
+            .node { width: 120px; font-size: 0.75rem; }
+            .gauge { width: 120px; height: 120px; }
+            .gauge-value { font-size: 1.4rem; }
+            .company-dashboard-section { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-emoji">🚀</div>
+                <h1 class="hero-title">The Future is Now:<br>AI-Accelerated Development</h1>
+                <p class="hero-author">Architected by Ambuj Kumar Tripathi | AI Solutions Engineer</p>
+                <p class="hero-subtitle">"Building Tomorrow's Solutions with Today's AI"</p>
+                <p class="hero-tagline">Not just a tool - A complete paradigm shift in development</p>
+                
+                <div class="power-quote">
+                    "The power of what you're going to be able to create on the web, we haven't given that power to developers in 25 years."
+                </div>
+
+                <p style="margin-top: 1rem; opacity: 0.8;"><strong>AI & Code: The Trust But Verify Approach</strong></p> <br>By <strong><i><u>Ambuj Kumar Tripathi</u></i></strong><br>   <br>The New Reality of Coding<br>We're living in exciting times! AI has moved from being just another tool to becoming our actual coding partner. But here's the thing – with great power comes great responsibility.The magic is real: Modern AI can write complex algorithms, solve tricky problems, and generate working code faster than ever. But the question isn't just "Does it work?" – it's "Is it actually good?"<br><br>The Hidden Challenges🔒 Security Blind Spots Recent research reveals something shocking: 60-70% of security issues in AI-generated code are BLOCKER level – the most critical kind. That's not occasional mistakes; that's a pattern we need to address.🧹 The Technical Debt Problem AI loves to write "quick and dirty" code. Sure, it works today, but 90% of AI code comes with structural issues that'll bite you later. Think of it as borrowing from your future self.<br><br>Every AI Has Its PersonalityJust like developers, each AI model has its own style:Some are security-focused but slowerOthers prioritize speed but create messy codeEach has strengths and blind spotsThe key? Understanding who you're working with and adapting accordingly.<br><br>My "Trust But Verify" PhilosophyHere's how I've learned to work with AI effectively:✅ Trust: Let AI handle the heavy lifting, generate drafts, solve complex problems<br>🔍 Verify: Always review, test, and refine. Check for:<br><br>Security vulnerabilities<br>Code quality issues<br>Long-term maintainability<br>Performance implications<br><br>The Bottom LineAI isn't replacing developers – it's making us better architects, reviewers, and problem-solvers. The future belongs to developers who can harness AI's speed while maintaining human judgment and quality standards.This isn't about limiting innovation. It's about innovating responsibly.<br><br><i>Want to discuss AI-assisted development strategies? Let's connect and explore how we can build better software together</i><br></p>
+            </div>
+        </section>
+
+        <!-- AI Impact Dashboard -->
+        <section class="dashboard-section">
+            <h2 class="dashboard-title">AI Development Impact Calculator</h2>
+            
+            <!-- Input Panel -->
+            <div class="input-panel">
+                <div class="input-group">
+                    <label class="input-label" for="projectType">Project Type</label>
+                    <select id="projectType">
+                        <option value="webapp">Web Application</option>
+                        <option value="mobile">Mobile App</option>
+                        <option value="desktop">Desktop Software</option>
+                        <option value="api">API Development</option>
+                        <option value="ml">Machine Learning</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="teamSize">Team Size</label>
+                    <div class="input-value" id="teamSizeValue">5 developers</div>
+                    <input type="range" id="teamSize" min="1" max="20" value="5">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="complexity">Project Complexity</label>
+                    <select id="complexity">
+                        <option value="simple">Simple</option>
+                        <option value="moderate" selected>Moderate</option>
+                        <option value="complex">Complex</option>
+                        <option value="enterprise">Enterprise</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="timeline">Timeline</label>
+                    <div class="input-value" id="timelineValue">24 weeks</div>
+                    <input type="range" id="timeline" min="4" max="52" value="24">
+                </div>
+            </div>
+
+            <!-- Speedometer Gauges -->
+            <div class="gauges-container">
+                <div class="gauge-container">
+                    <div class="gauge-label">Development Speed</div>
+                    <div class="gauge">
+                        <div class="gauge-background">
+                            <div class="gauge-inner">
+                                <div class="gauge-needle" id="speedNeedle"></div>
+                                <div class="gauge-value" id="speedValue">2.1x</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gauge-description">Faster than traditional development</div>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="gauge-label">Time Saved</div>
+                    <div class="gauge">
+                        <div class="gauge-background">
+                            <div class="gauge-inner">
+                                <div class="gauge-needle" id="timeNeedle"></div>
+                                <div class="gauge-value" id="timeValue">52%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gauge-description">Reduction in development time</div>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="gauge-label">Cost Efficiency</div>
+                    <div class="gauge">
+                        <div class="gauge-background">
+                            <div class="gauge-inner">
+                                <div class="gauge-needle" id="costNeedle"></div>
+                                <div class="gauge-value" id="costValue">68%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gauge-description">Cost reduction vs traditional</div>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="gauge-label">Team Productivity</div>
+                    <div class="gauge">
+                        <div class="gauge-background">
+                            <div class="gauge-inner">
+                                <div class="gauge-needle" id="productivityNeedle"></div>
+                                <div class="gauge-value" id="productivityValue">1.9x</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gauge-description">Productivity multiplier</div>
+                </div>
+            </div>
+
+            <!-- Timeline Comparison -->
+            <div class="timeline-comparison">
+                <div class="timeline-card traditional">
+                    <div class="timeline-title traditional">⚠️ Traditional Development</div>
+                    <div class="timeline-duration traditional" id="traditionalTime">24 weeks</div>
+                    <div class="timeline-subtitle">Manual coding, debugging cycles</div>
+                </div>
+                <div class="timeline-card ai">
+                    <div class="timeline-title ai">🚀 AI-Accelerated Development</div>
+                    <div class="timeline-duration ai" id="aiTime">12 weeks</div>
+                    <div class="timeline-subtitle">Smart automation + human creativity</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================= -->
+        <!-- 🚀 COMPANY DASHBOARD - REVENUE SECTION REMOVED -->
+        <!-- ============================================= -->
+        <section class="company-dashboard-section">
+            <div class="company-live-indicator">
+                <div class="company-live-dot"></div>
+                <span>LIVE DATA</span>
+            </div>
+            
+            <h2 class="company-dashboard-title">Real-Time Company Analytics</h2>
+            
+            <!-- Company Controls Panel -->
+            <div class="company-controls-panel">
+                <div class="company-control-group">
+                    <label class="company-control-label" for="companyDepartment">Department</label>
+                    <select id="companyDepartment" class="company-control-select">
+                        <option value="development">Development</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="design">Design</option>
+                        <option value="qa">Quality Assurance</option>
+                        <option value="sales">Sales</option>
+                    </select>
+                </div>
+
+                <div class="company-control-group">
+                    <label class="company-control-label" for="companyTimePeriod">Time Period</label>
+                    <select id="companyTimePeriod" class="company-control-select">
+                        <option value="daily">Daily</option>
+                        <option value="weekly" selected>Weekly</option>
+                        <option value="monthly">Monthly</option>
+                        <option value="quarterly">Quarterly</option>
+                    </select>
+                </div>
+
+                <div class="company-control-group">
+                    <label class="company-control-label" for="companyProjectType">Project Type</label>
+                    <select id="companyProjectType" class="company-control-select">
+                        <option value="web">Web Projects</option>
+                        <option value="mobile">Mobile Apps</option>
+                        <option value="enterprise" selected>Enterprise</option>
+                        <option value="startup">Startup</option>
+                    </select>
+                </div>
+
+                <div class="company-control-group">
+                    <label class="company-control-label" for="companyRegion">Region</label>
+                    <select id="companyRegion" class="company-control-select">
+                        <option value="india" selected>India</option>
+                        <option value="usa">USA</option>
+                        <option value="europe">Europe</option>
+                        <option value="global">Global</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Company Metrics Grid - REVENUE CARD REMOVED -->
+            <div class="company-metrics-grid">
+                <div class="company-metric-card">
+                    <div class="company-metric-header">
+                        <div class="company-metric-title">Active Projects</div>
+                        <div class="company-metric-icon">📊</div>
+                    </div>
+                    <div class="company-metric-value" id="companyProjects">47</div>
+                    <div class="company-metric-change positive" id="projectsChange">
+                        <span>↗</span> +8 new projects
+                    </div>
+                </div>
+
+                <div class="company-metric-card">
+                    <div class="company-metric-header">
+                        <div class="company-metric-title">Team Efficiency</div>
+                        <div class="company-metric-icon">⚡</div>
+                    </div>
+                    <div class="company-metric-value" id="companyEfficiency">89%</div>
+                    <div class="company-metric-change positive" id="efficiencyChange">
+                        <span>↗</span> +5.2% improvement
+                    </div>
+                </div>
+
+                <div class="company-metric-card">
+                    <div class="company-metric-header">
+                        <div class="company-metric-title">Client Satisfaction</div>
+                        <div class="company-metric-icon">⭐</div>
+                    </div>
+                    <div class="company-metric-value" id="companySatisfaction">4.8</div>
+                    <div class="company-metric-change positive" id="satisfactionChange">
+                        <span>↗</span> +0.3 rating increase
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company Chart -->
+            <div class="company-chart-container">
+                <h3 class="company-chart-title">Weekly Performance Trends</h3>
+                <div class="company-chart" id="companyChart">
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 120px;">
+                            <div class="company-bar-value">85%</div>
+                        </div>
+                        <div class="company-bar-label">Mon</div>
+                    </div>
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 140px;">
+                            <div class="company-bar-value">92%</div>
+                        </div>
+                        <div class="company-bar-label">Tue</div>
+                    </div>
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 100px;">
+                            <div class="company-bar-value">78%</div>
+                        </div>
+                        <div class="company-bar-label">Wed</div>
+                    </div>
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 160px;">
+                            <div class="company-bar-value">96%</div>
+                        </div>
+                        <div class="company-bar-label">Thu</div>
+                    </div>
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 135px;">
+                            <div class="company-bar-value">88%</div>
+                        </div>
+                        <div class="company-bar-label">Fri</div>
+                    </div>
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 80px;">
+                            <div class="company-bar-value">65%</div>
+                        </div>
+                        <div class="company-bar-label">Sat</div>
+                    </div>
+                    <div class="company-chart-bar">
+                        <div class="company-bar" style="height: 60px;">
+                            <div class="company-bar-value">45%</div>
+                        </div>
+                        <div class="company-bar-label">Sun</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Reality Section -->
+        <section class="section">
+            <h2 class="section-title">The New Development Reality</h2>
+            <div class="reality-grid">
+                <div class="reality-card">
+                    <h3>Traditional Coding</h3>
+                    <p>Hours of manual work, repetitive tasks, and slow iteration cycles that drain creativity and productivity.</p>
+                </div>
+                <div class="reality-card">
+                    <h3>AI-Assisted Coding</h3>
+                    <p>Strategic thinking + Smart automation = Enhanced creativity with exponentially faster delivery.</p>
+                </div>
+                <div class="reality-card">
+                    <h3>The Result</h3>
+                    <p><strong>70% faster delivery</strong> with enhanced creativity. AI-Powered Workflow Philosophy: leverage AI as my creative partner - not to replace thinking, but to amplify it.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Flowchart Section -->
+        <section class="section">
+            <h2 class="section-title">AI-Accelerated Development Process</h2>
+            <div class="flowchart-section">
+                <div class="flowchart">
+                    <!-- Nodes -->
+                    <div id="nodeA" class="node" style="top: 50px; left: 50px;">
+                        Idea & Requirement<br>Analysis
+                    </div>
+                    
+                    <div id="nodeB" class="node" style="top: 50px; left: 250px;">
+                        Team Collaboration<br>& Discussion
+                    </div>
+                    
+                    <div id="nodeC" class="node" style="top: 50px; left: 450px;">
+                        Development Approach
+                    </div>
+                    
+                    <div id="nodeD" class="node traditional" style="top: 200px; left: 150px;">
+                        Manual Coding<br>Line by Line
+                        <div class="laptop-character laptop-frustrated"></div>
+                    </div>
+                    
+                    <div id="nodeE" class="node ai" style="top: 200px; left: 350px;">
+                        Smart Prompting<br>LLM Integration
+                        <div class="laptop-character laptop-happy"></div>
+                    </div>
+                    
+                    <div id="nodeF" class="node" style="top: 350px; left: 250px;">
+                        Final Delivery
+                    </div>
+                    
+                    <div id="nodeG" class="node" style="top: 350px; left: 450px;">
+                        Testing &<br>Monitoring
+                    </div>
+
+                    <!-- Connection Lines -->
+                    <div id="lineAB" class="line horizontal" style="top: 70px; left: 210px; width: 30px;"></div>
+                    <div id="lineBC" class="line horizontal" style="top: 70px; left: 410px; width: 30px;"></div>
+                    <div id="lineCD1" class="line vertical" style="top: 85px; left: 530px; height: 60px;"></div>
+                    <div id="lineCD2" class="line horizontal" style="top: 145px; left: 230px; width: 300px;"></div>
+                    <div id="lineCD3" class="line vertical" style="top: 145px; left: 230px; height: 50px;"></div>
+                    <div id="lineCE1" class="line vertical" style="top: 145px; left: 430px; height: 50px;"></div>
+                    <div id="lineDF1" class="line vertical" style="top: 235px; left: 230px; height: 60px;"></div>
+                    <div id="lineDF2" class="line horizontal" style="top: 295px; left: 230px; width: 100px;"></div>
+                    <div id="lineDF3" class="line vertical" style="top: 295px; left: 330px; height: 50px;"></div>
+                    <div id="lineEF1" class="line vertical" style="top: 235px; left: 430px; height: 60px;"></div>
+                    <div id="lineEF2" class="line horizontal" style="top: 295px; left: 330px; width: 100px;"></div>
+                    <div id="lineFG" class="line horizontal" style="top: 370px; left: 410px; width: 30px;"></div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn" id="startOriginalFlow">🚀 Start Development Flow</button>
+                    <button class="btn" id="resetOriginalFlow">🔄 Reset</button>
+                </div>
+
+                <!-- Legend -->
+                <div class="legend" style="display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
+                    <div class="legend-item" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #900, #b33); border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);"></div>
+                        <span style="font-weight: 500;">Traditional Approach 💻😤</span>
+                    </div>
+                    <div class="legend-item" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #078, #0ab); border-radius: 6px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);"></div>
+                        <span style="font-weight: 500;">AI-Powered Approach 💻😊</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="statSpeed">3x</div>
+                    <div class="stat-label">Faster Development</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statEfficiency">70%</div>
+                    <div class="stat-label">Time Saved</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statQuality">100%</div>
+                    <div class="stat-label">Quality Maintained</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why This Approach Wins -->
+        <section class="section">
+            <h2 class="section-title">Why This Approach Wins</h2>
+            <div class="wins-grid">
+                <div class="win-item">✅ 3x faster development cycles</div>
+                <div class="win-item">✅ More time for creative problem-solving</div>
+                <div class="win-item">✅ Higher code quality through AI + human synergy</div>
+                <div class="win-item">✅ Scalable solutions that adapt and grow</div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="cta-title">Interested in AI-accelerated development projects?</h2>
+            <p style="font-size: 1.2rem; margin: 1rem 0;">Let's build something extraordinary.</p>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/ambuj-tripathi-042b4a118/" class="social-link" target="_blank">
+                    💼 LinkedIn
+                </a>
+                <a href="https://github.com/Ambuj123-lab" class="social-link" target="_blank">
+                    🐙 GitHub
+                </a>
+                <a href="#" class="social-link">
+                    🌐 Portfolio
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 Ambuj Kumar Tripathi | AI-Accelerated Development Specialist</p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with AI Vibes - Prompt-Engineered Solution Showcasing the future of development</p>
+        </footer>
+    </div>
+
+    <script>
+        class AIAcceleratedDemo {
+            constructor() {
+                this.isAnimating = false;
+                this.dashboardData = {
+                    projectType: 'webapp',
+                    teamSize: 5,
+                    complexity: 'moderate',
+                    timeline: 24
+                };
+                
+                // Company dashboard data - REVENUE REMOVED
+                this.companyData = {
+                    department: 'development',
+                    timePeriod: 'weekly',
+                    projectType: 'enterprise',
+                    region: 'india',
+                    projects: 47,
+                    efficiency: 89,
+                    satisfaction: 4.8
+                };
+                
+                this.companyUpdateInterval = null;
+                this.init();
+            }
+
+            init() {
+                this.createFloatingParticles();
+                this.setupEventListeners();
+                this.setupDashboardListeners();
+                this.setupCompanyDashboard(); // Company dashboard setup
+                this.updateDashboard();
+                
+                console.log('AI Demo Ready - Dashboard functional, Flowchart working, Company Dashboard Live! (Revenue Removed)');
+            }
+
+            setupEventListeners() {
+                // Flowchart controls
+                const startBtn = document.getElementById('startOriginalFlow');
+                const resetBtn = document.getElementById('resetOriginalFlow');
+                
+                if (startBtn) {
+                    startBtn.onclick = () => {
+                        console.log('Start clicked');
+                        this.startFlowAnimation();
+                    };
+                }
+                
+                if (resetBtn) {
+                    resetBtn.onclick = () => {
+                        console.log('Reset clicked');
+                        this.resetFlowAnimation();
+                    };
+                }
+                
+                // Keyboard shortcuts
+                document.onkeydown = (e) => {
+                    if (e.code === 'Space' && !['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) {
+                        e.preventDefault();
+                        this.startFlowAnimation();
+                    }
+                    if (e.code === 'KeyR' && !['INPUT', 'SELECT', 'TEXTAREA'].includes(e.target.tagName)) {
+                        e.preventDefault();
+                        this.resetFlowAnimation();
+                    }
+                };
+            }
+
+            // ============================================= 
+            // 🚀 COMPANY DASHBOARD METHODS - REVENUE REMOVED
+            // ============================================= 
+            
+            setupCompanyDashboard() {
+                console.log('Setting up Company Dashboard... (Revenue Removed)');
+                
+                // Company dashboard controls
+                const departmentSelect = document.getElementById('companyDepartment');
+                const timePeriodSelect = document.getElementById('companyTimePeriod');
+                const projectTypeSelect = document.getElementById('companyProjectType');
+                const regionSelect = document.getElementById('companyRegion');
+
+                if (departmentSelect) {
+                    departmentSelect.onchange = (e) => {
+                        this.companyData.department = e.target.value;
+                        console.log('Department changed:', e.target.value);
+                        this.updateCompanyMetrics();
+                    };
+                }
+
+                if (timePeriodSelect) {
+                    timePeriodSelect.onchange = (e) => {
+                        this.companyData.timePeriod = e.target.value;
+                        console.log('Time period changed:', e.target.value);
+                        this.updateCompanyMetrics();
+                        this.updateCompanyChart();
+                    };
+                }
+
+                if (projectTypeSelect) {
+                    projectTypeSelect.onchange = (e) => {
+                        this.companyData.projectType = e.target.value;
+                        console.log('Project type changed:', e.target.value);
+                        this.updateCompanyMetrics();
+                    };
+                }
+
+                if (regionSelect) {
+                    regionSelect.onchange = (e) => {
+                        this.companyData.region = e.target.value;
+                        console.log('Region changed:', e.target.value);
+                        this.updateCompanyMetrics();
+                    };
+                }
+
+                // Start real-time updates
+                this.startCompanyUpdates();
+                this.updateCompanyMetrics();
+                this.updateCompanyChart();
+            }
+
+            startCompanyUpdates() {
+                // Update every 3 seconds for live effect
+                this.companyUpdateInterval = setInterval(() => {
+                    this.simulateRealTimeData();
+                }, 3000);
+
+                console.log('Company real-time updates started! (No Revenue Tracking)');
+            }
+
+            simulateRealTimeData() {
+                const { department, timePeriod, projectType, region } = this.companyData;
+                
+                // Simulate realistic business fluctuations - REVENUE REMOVED
+                const baseValues = this.getBaseValues(department, projectType, region);
+                const timeMultiplier = this.getTimeMultiplier(timePeriod);
+                
+                // Add realistic variations - NO REVENUE
+                this.companyData.projects = Math.max(1, baseValues.projects + this.randomVariation(-3, 5));
+                this.companyData.efficiency = Math.min(100, Math.max(60, baseValues.efficiency + this.randomVariation(-5, 8)));
+                this.companyData.satisfaction = Math.min(5.0, Math.max(3.0, baseValues.satisfaction + this.randomVariation(-0.2, 0.3)));
+
+                // Update displays
+                this.updateCompanyMetrics();
+                this.updateCompanyChart();
+            }
+
+            getBaseValues(department, projectType, region) {
+                const deptMultipliers = {
+                    development: { projects: 1.1, efficiency: 0.95, satisfaction: 1.0 },
+                    marketing: { projects: 0.7, efficiency: 1.1, satisfaction: 1.1 },
+                    design: { projects: 0.5, efficiency: 1.2, satisfaction: 1.2 },
+                    qa: { projects: 1.3, efficiency: 0.9, satisfaction: 0.95 },
+                    sales: { projects: 0.8, efficiency: 1.0, satisfaction: 0.9 }
+                };
+
+                const projMultipliers = {
+                    web: { projects: 1.2, efficiency: 1.0, satisfaction: 1.0 },
+                    mobile: { projects: 0.9, efficiency: 0.9, satisfaction: 1.1 },
+                    enterprise: { projects: 0.7, efficiency: 0.8, satisfaction: 0.9 },
+                    startup: { projects: 1.5, efficiency: 1.2, satisfaction: 1.2 }
+                };
+
+                const regionMultipliers = {
+                    india: { projects: 1.0, efficiency: 1.0, satisfaction: 1.0 },
+                    usa: { projects: 0.8, efficiency: 1.1, satisfaction: 1.0 },
+                    europe: { projects: 0.9, efficiency: 1.0, satisfaction: 1.1 },
+                    global: { projects: 1.3, efficiency: 0.9, satisfaction: 0.95 }
+                };
+
+                const dept = deptMultipliers[department] || deptMultipliers.development;
+                const proj = projMultipliers[projectType] || projMultipliers.enterprise;
+                const reg = regionMultipliers[region] || regionMultipliers.india;
+
+                return {
+                    projects: Math.round(47 * dept.projects * proj.projects * reg.projects),
+                    efficiency: Math.round(89 * dept.efficiency * proj.efficiency * reg.efficiency),
+                    satisfaction: Math.round((4.8 * dept.satisfaction * proj.satisfaction * reg.satisfaction) * 10) / 10
+                };
+            }
+
+            getTimeMultiplier(timePeriod) {
+                const multipliers = {
+                    daily: 0.15,
+                    weekly: 1.0,
+                    monthly: 4.3,
+                    quarterly: 13.0
+                };
+                return multipliers[timePeriod] || 1.0;
+            }
+
+            randomVariation(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            updateCompanyMetrics() {
+                // Projects
+                const projectsEl = document.getElementById('companyProjects');
+                const projectsChangeEl = document.getElementById('projectsChange');
+                if (projectsEl && projectsChangeEl) {
+                    projectsEl.textContent = this.companyData.projects;
+                    
+                    const change = this.randomVariation(2, 8);
+                    const isPositive = Math.random() > 0.25;
+                    projectsChangeEl.className = `company-metric-change ${isPositive ? 'positive' : 'negative'}`;
+                    projectsChangeEl.innerHTML = `<span>${isPositive ? '↗' : '↘'}</span> ${isPositive ? '+' : '-'}${change} ${isPositive ? 'new' : 'completed'} projects`;
+                }
+
+                // Efficiency
+                const efficiencyEl = document.getElementById('companyEfficiency');
+                const efficiencyChangeEl = document.getElementById('efficiencyChange');
+                if (efficiencyEl && efficiencyChangeEl) {
+                    efficiencyEl.textContent = this.companyData.efficiency + '%';
+                    
+                    const change = (Math.random() * 8 + 1).toFixed(1);
+                    const isPositive = Math.random() > 0.2;
+                    efficiencyChangeEl.className = `company-metric-change ${isPositive ? 'positive' : 'negative'}`;
+                    efficiencyChangeEl.innerHTML = `<span>${isPositive ? '↗' : '↘'}</span> ${isPositive ? '+' : '-'}${change}% ${isPositive ? 'improvement' : 'decline'}`;
+                }
+
+                // Satisfaction
+                const satisfactionEl = document.getElementById('companySatisfaction');
+                const satisfactionChangeEl = document.getElementById('satisfactionChange');
+                if (satisfactionEl && satisfactionChangeEl) {
+                    satisfactionEl.textContent = this.companyData.satisfaction.toFixed(1);
+                    
+                    const change = (Math.random() * 0.5 + 0.1).toFixed(1);
+                    const isPositive = Math.random() > 0.15;
+                    satisfactionChangeEl.className = `company-metric-change ${isPositive ? 'positive' : 'negative'}`;
+                    satisfactionChangeEl.innerHTML = `<span>${isPositive ? '↗' : '↘'}</span> ${isPositive ? '+' : '-'}${change} rating ${isPositive ? 'increase' : 'decrease'}`;
+                }
+
+                console.log('Company metrics updated (No Revenue):', this.companyData);
+            }
+
+            updateCompanyChart() {
+                const chartBars = document.querySelectorAll('.company-bar');
+                const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                
+                chartBars.forEach((bar, index) => {
+                    // Generate realistic business performance patterns
+                    let basePerformance;
+                    if (index < 5) { // Weekdays
+                        basePerformance = 75 + Math.random() * 25; // 75-100%
+                    } else { // Weekend
+                        basePerformance = 30 + Math.random() * 40; // 30-70%
+                    }
+                    
+                    // Add department-specific variations
+                    const { department } = this.companyData;
+                    if (department === 'development' && index < 5) {
+                        basePerformance += 10; // Developers work better on weekdays
+                    } else if (department === 'marketing') {
+                        basePerformance = 60 + Math.random() * 30; // More consistent
+                    }
+                    
+                    const performance = Math.min(100, Math.max(20, basePerformance));
+                    const height = (performance / 100) * 180; // Max height 180px
+                    
+                    // Smooth animation
+                    bar.style.transition = 'height 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                    bar.style.height = height + 'px';
+                    
+                    // Update value
+                    const valueEl = bar.querySelector('.company-bar-value');
+                    if (valueEl) {
+                        valueEl.textContent = Math.round(performance) + '%';
+                    }
+                });
+            }
+
+            // Original methods continue below...
+            setupDashboardListeners() {
+                // Project Type
+                const projectType = document.getElementById('projectType');
+                if (projectType) {
+                    projectType.onchange = (e) => {
+                        this.dashboardData.projectType = e.target.value;
+                        console.log('Project type:', e.target.value);
+                        this.updateDashboard();
+                    };
+                }
+
+                // Team Size
+                const teamSize = document.getElementById('teamSize');
+                const teamSizeValue = document.getElementById('teamSizeValue');
+                if (teamSize && teamSizeValue) {
+                    teamSize.oninput = (e) => {
+                        const size = parseInt(e.target.value);
+                        this.dashboardData.teamSize = size;
+                        teamSizeValue.textContent = `${size} developer${size > 1 ? 's' : ''}`;
+                        console.log('Team size:', size);
+                        this.updateDashboard();
+                    };
+                }
+
+                // Complexity
+                const complexity = document.getElementById('complexity');
+                if (complexity) {
+                    complexity.onchange = (e) => {
+                        this.dashboardData.complexity = e.target.value;
+                        console.log('Complexity:', e.target.value);
+                        this.updateDashboard();
+                    };
+                }
+
+                // Timeline
+                const timeline = document.getElementById('timeline');
+                const timelineValue = document.getElementById('timelineValue');
+                if (timeline && timelineValue) {
+                    timeline.oninput = (e) => {
+                        const weeks = parseInt(e.target.value);
+                        this.dashboardData.timeline = weeks;
+                        timelineValue.textContent = `${weeks} weeks`;
+                        console.log('Timeline:', weeks);
+                        this.updateDashboard();
+                    };
+                }
+            }
+
+            calculateMetrics() {
+                const { projectType, teamSize, complexity, timeline } = this.dashboardData;
+
+                // Base values
+                let speed = 2.0;
+                let timeSaved = 50;
+                let costEfficiency = 60;
+                let productivity = 1.8;
+
+                // Project type effects
+                const projectEffects = {
+                    webapp: { speed: 1.0, time: 1.0, cost: 1.0, productivity: 1.0 },
+                    mobile: { speed: 1.3, time: 1.2, cost: 1.15, productivity: 1.2 },
+                    desktop: { speed: 0.8, time: 0.8, cost: 0.85, productivity: 0.85 },
+                    api: { speed: 1.6, time: 1.4, cost: 1.3, productivity: 1.4 },
+                    ml: { speed: 2.0, time: 1.6, cost: 1.5, productivity: 1.6 }
+                };
+
+                // Complexity effects
+                const complexityEffects = {
+                    simple: { speed: 1.4, time: 1.5, cost: 1.4, productivity: 1.3 },
+                    moderate: { speed: 1.0, time: 1.0, cost: 1.0, productivity: 1.0 },
+                    complex: { speed: 0.6, time: 0.5, cost: 0.6, productivity: 0.7 },
+                    enterprise: { speed: 0.4, time: 0.3, cost: 0.5, productivity: 0.6 }
+                };
+
+                // Team coordination factor
+                const teamFactor = Math.max(0.5, 1.4 - (teamSize * 0.05));
+
+                const projEff = projectEffects[projectType] || projectEffects.webapp;
+                const compEff = complexityEffects[complexity] || complexityEffects.moderate;
+
+                // Calculate final metrics
+                speed = Math.min(3.0, Math.max(1.0, speed * projEff.speed * compEff.speed * teamFactor));
+                timeSaved = Math.min(80, Math.max(0, timeSaved * projEff.time * compEff.time));
+                costEfficiency = Math.min(100, Math.max(0, costEfficiency * projEff.cost * compEff.cost));
+                productivity = Math.min(2.5, Math.max(1.0, productivity * projEff.productivity * compEff.productivity * teamFactor));
+
+                return {
+                    speed: Math.round(speed * 10) / 10,
+                    timeSaved: Math.round(timeSaved),
+                    costEfficiency: Math.round(costEfficiency),
+                    productivity: Math.round(productivity * 10) / 10,
+                    traditionalWeeks: timeline,
+                    aiWeeks: Math.max(1, Math.round(timeline * (100 - timeSaved) / 100))
+                };
+            }
+
+            updateDashboard() {
+                const metrics = this.calculateMetrics();
+                console.log('Updating gauges:', metrics);
+
+                // Update values and needles
+                this.setGauge('speedValue', 'speedNeedle', metrics.speed, 'x', 1, 3);
+                this.setGauge('timeValue', 'timeNeedle', metrics.timeSaved, '%', 0, 80);
+                this.setGauge('costValue', 'costNeedle', metrics.costEfficiency, '%', 0, 100);
+                this.setGauge('productivityValue', 'productivityNeedle', metrics.productivity, 'x', 1, 2.5);
+
+                // Update timeline
+                const traditionalTime = document.getElementById('traditionalTime');
+                const aiTime = document.getElementById('aiTime');
+                if (traditionalTime) traditionalTime.textContent = `${metrics.traditionalWeeks} weeks`;
+                if (aiTime) aiTime.textContent = `${metrics.aiWeeks} weeks`;
+            }
+
+            setGauge(valueId, needleId, value, suffix, min, max) {
+                // Update value display
+                const valueEl = document.getElementById(valueId);
+                if (valueEl) {
+                    const displayValue = suffix === 'x' ? value : Math.round(value);
+                    valueEl.textContent = displayValue + suffix;
+                }
+
+                // Update needle position
+                const needleEl = document.getElementById(needleId);
+                if (needleEl) {
+                    const percent = (value - min) / (max - min);
+                    const rotation = 135 + (percent * 270); // 135° to 405°
+                    needleEl.style.transform = `rotate(${rotation}deg)`;
+                    needleEl.style.transition = 'transform 0.8s ease-out';
+                }
+            }
+
+            async startFlowAnimation() {
+                if (this.isAnimating) {
+                    console.log('Already animating');
+                    return;
+                }
+                
+                console.log('Starting flowchart animation');
+                this.isAnimating = true;
+                const startBtn = document.getElementById('startOriginalFlow');
+                if (startBtn) {
+                    startBtn.disabled = true;
+                    startBtn.textContent = 'Processing...';
+                }
+
+                // Reset first
+                this.resetFlowAnimation(false);
+                await this.wait(500);
+
+                // Animation sequence
+                const steps = [
+                    { id: 'nodeA', delay: 300 },
+                    { id: 'lineAB', delay: 600 },
+                    { id: 'nodeB', delay: 600 },
+                    { id: 'lineBC', delay: 600 },
+                    { id: 'nodeC', delay: 600 },
+                    { id: 'lineCD1', delay: 600 },
+                    { id: 'lineCD2', delay: 600 },
+                    { id: 'lineCD3', delay: 600 },
+                    { id: 'lineCE1', delay: 600 },
+                    { id: 'nodeD', delay: 600 },
+                    { id: 'nodeE', delay: 400 },
+                    { id: 'lineDF1', delay: 600 },
+                    { id: 'lineEF1', delay: 600 },
+                    { id: 'lineDF2', delay: 600 },
+                    { id: 'lineEF2', delay: 600 },
+                    { id: 'lineDF3', delay: 600 },
+                    { id: 'nodeF', delay: 600 },
+                    { id: 'lineFG', delay: 600 },
+                    { id: 'nodeG', delay: 600 }
+                ];
+
+                for (const step of steps) {
+                    await this.wait(step.delay);
+                    this.showElement(step.id);
+                }
+
+                await this.wait(1000);
+                this.isAnimating = false;
+                if (startBtn) {
+                    startBtn.disabled = false;
+                    startBtn.textContent = '🚀 Start Development Flow';
+                }
+                console.log('Animation completed');
+            }
+
+            showElement(id) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('show');
+                    console.log('Showing:', id);
+                    
+                    if (el.classList.contains('node')) {
+                        el.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3), 0 0 20px rgba(78, 205, 196, 0.4)';
+                        
+                        // Show laptop character
+                        const char = el.querySelector('.laptop-character');
+                        if (char) char.classList.add('show');
+                    }
+                }
+            }
+
+            resetFlowAnimation(resetButton = true) {
+                console.log('Resetting flowchart');
+                this.isAnimating = false;
+                
+                if (resetButton) {
+                    const startBtn = document.getElementById('startOriginalFlow');
+                    if (startBtn) {
+                        startBtn.disabled = false;
+                        startBtn.textContent = '🚀 Start Development Flow';
+                    }
+                }
+
+                // Reset all elements
+                document.querySelectorAll('.node, .line').forEach(el => {
+                    el.classList.remove('show');
+                    el.style.boxShadow = '';
+                });
+
+                // Reset characters
+                document.querySelectorAll('.laptop-character').forEach(char => {
+                    char.classList.remove('show');
+                });
+            }
+
+            createFloatingParticles() {
+                const container = document.querySelector('.particles');
+                if (!container) return;
+                
+                const createParticle = () => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * window.innerWidth + 'px';
+                    particle.style.animationDelay = Math.random() * 6 + 's';
+                    particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.remove();
+                        }
+                    }, 6000);
+                };
+
+                setInterval(createParticle, 800);
+                for (let i = 0; i < 5; i++) {
+                    setTimeout(createParticle, i * 200);
+                }
+            }
+
+            wait(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // Cleanup method
+            destroy() {
+                if (this.companyUpdateInterval) {
+                    clearInterval(this.companyUpdateInterval);
+                    this.companyUpdateInterval = null;
+                }
+            }
+        }
+
+        // Initialize when ready
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Initializing AI Demo with Company Dashboard (Revenue Removed)');
+            window.aiDemo = new AIAcceleratedDemo();
+            document.documentElement.style.scrollBehavior = 'smooth';
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', () => {
+            if (window.aiDemo) {
+                window.aiDemo.destroy();
+            }
+        });
+
+        // Dynamic background
+        window.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.body.style.background = `
+                linear-gradient(135deg, 
+                    hsl(${240 + x * 20}, 70%, ${10 + y * 10}%) 0%, 
+                    hsl(${260 + x * 15}, 60%, ${15 + y * 10}%) 25%, 
+                    hsl(${280 + x * 10}, 50%, ${20 + y * 10}%) 50%, 
+                    hsl(${300 + x * 5}, 60%, ${25 + y * 10}%) 75%, 
+                    hsl(${320 + x * 10}, 50%, ${30 + y * 10}%) 100%)
+            `;
+        });
+    </script>
+</body>
+</html>
