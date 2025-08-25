@@ -1,5 +1,7 @@
 // Tumhara live backend URL
-const API_URL = 'https://data-analysis-tool-nine.vercel.app' => {
+const API_URL = 'https://data-analysis-tool-nine.vercel.app'; 
+
+document.getElementById('upload-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const fileInput = document.getElementById('file-input');
     const file = fileInput.files[0];
