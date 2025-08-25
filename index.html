@@ -2144,7 +2144,54 @@
             `;
         });
     </script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="script.js"></script>
+   <div class="tool-section">
+    <div class="container">
+        <h1 class="animate-on-scroll" style="--delay: 0.1s;">AI-Accelerated Data Analysis</h1>
+        <p class="animate-on-scroll" style="--delay: 0.2s;">
+            <p style="color: #ffd700; font-weight: 900;">Upload any CSV or Excel file to get started.</p>
+        </p>
+
+        <form id="upload-form" class="animate-on-scroll" style="--delay: 0.3s;">
+            <div class="input-group">
+                <label for="file-input" id="file-label">
+                    <span id="file-name">Choose File</span>
+                    <i class="fas fa-paperclip"></i>
+                </label>
+                <input type="file" id="file-input" name="file" accept=".csv, .xls, .xlsx" required>
+            </div>
+            <button type="submit" class="cta-button">
+                ✨ Analyze Data
+            </button>
+        </form>
+
+        <div id="chart-controls" style="display: none;" class="animate-on-scroll" style="--delay: 0.4s;">
+            <p>Select columns to generate your chart.</p>
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="x-column">X Axis Column:</label>
+                    <select id="x-column"></select>
+                </div>
+                <div class="control-group">
+                    <label for="y-column">Y Axis Column:</label>
+                    <select id="y-column"></select>
+                </div>
+                <div class="control-group">
+                    <label for="chart-type">Chart Type:</label>
+                    <select id="chart-type">
+                        <option value="bar">Bar Chart</option>
+                        <option value="line">Line Chart</option>
+                        <option value="scatter">Scatter Plot</option>
+                    </select>
+                </div>
+            </div>
+            <button id="create-chart" class="cta-button">
+                Generate Chart
+            </button>
+        </div>
+        
+        <div id="chart-container" class="animate-on-scroll" style="--delay: 0.5s;"></div>
+        <div id="error-message"></div>
+    </div>
+</div>
 </body>
 </html>
