@@ -1,6 +1,12 @@
 // Tumhara live backend URL
 const API_URL = 'https://data-analysis-tool-nine.vercel.app'; 
 
+// File name ko update karne ke liye event listener
+document.getElementById('file-input').addEventListener('change', (e) => {
+    const fileName = e.target.files[0].name;
+    document.querySelector('#upload-form > div > div').textContent = `📁 ${fileName}`;
+});
+
 document.getElementById('upload-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const fileInput = document.getElementById('file-input');
@@ -10,12 +16,16 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
 
     const response = await fetch(`${API_URL}/api/data`, {
         method: 'POST',
-        body: formData
+        body: formData,
     });
 
-    const data = await response.json();
-    populateDropdowns(data.columns);
-    document.getElementById('chart-controls').style.display = 'block';
+    if (response.ok) {
+        const data = await response.json();
+        populateDropdowns(data.columns);
+        document.getElementById('chart-controls').style.display = 'block';
+    } else {
+        alert("File upload failed. Please check the file format and try again.");
+    }
 });
 
 function populateDropdowns(columns) {
@@ -39,7 +49,11 @@ document.getElementById('create-chart').addEventListener('click', async () => {
     const chartType = document.getElementById('chart-type').value;
 
     const response = await fetch(`${API_URL}/api/chart?column1=${column1}&column2=${column2}&chart_type=${chartType}`);
-    const data = await response.json();
-
-    Plotly.newPlot('chart-container', data.data, data.layout);
+    
+    if (response.ok) {
+        const data = await response.json();
+        Plotly.newPlot('chart-container', data.data, data.layout);
+    } else {
+        alert("Chart generation failed. Please try different columns or chart types.");
+    }
 });
