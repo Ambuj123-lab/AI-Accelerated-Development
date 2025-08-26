@@ -1104,7 +1104,6 @@
             padding: 20px;
         }
 
-        /* CSS for Data Tool Section from the user's code */
         .ai-section {
             padding: 80px 20px;
             text-align: center;
@@ -1117,7 +1116,6 @@
             overflow: hidden;
         }
         
-        /* Enhanced "Built By" section */
         .built-by-container {
             display: flex;
             flex-direction: column;
@@ -1169,11 +1167,13 @@
             color: #fff;
             margin-top: 20px;
         }
+        
         .ai-section p {
             font-size: 1.1rem;
             color: #b0b0b0;
             margin-bottom: 30px;
         }
+        
         .ai-button {
             padding: 12px 30px;
             border: none;
@@ -1185,11 +1185,24 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(255, 76, 76, 0.4);
-            text-decoration: none;
         }
+        
         .ai-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(255, 76, 76, 0.6);
+        }
+        
+        #tool-container {
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        #tool-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
         
         /* Responsive design */
@@ -1200,15 +1213,18 @@
             
             .ai-section h2 {
                 margin-top: 0;
+                font-size: 2rem;
+            }
+            
+            #tool-frame {
+                height: 600px;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- HTML Section for the Button and Description -->
 <section class="ai-section">
-    <!-- Enhanced Built By Section -->
     <div class="built-by-container">
         <span class="built-by-text">Built with</span>
         <div class="tech-stack">
@@ -1221,20 +1237,36 @@
     </div>
     
     <h2>AI-Accelerated Data Tool Demo</h2>
+    
     <p>
         Explore a live demo of my AI-powered data visualization and analysis tools. This application supports
-        **structured and non-structured data** from **Excel and CSV files** up to **5 MB**.
-        It is built using key data science libraries such as **NumPy, Plotly, and Matplotlib** to provide
+        <b>structured and non-structured data</b> from <b>Excel and CSV files</b> up to <b>5 MB</b>.
+        It is built using key data science libraries such as <b>NumPy, Plotly, and Matplotlib</b> to provide
         streamlined insights.
     </p>
-    <!-- The button is now a link that opens in a new tab -->
-    <a href="https://data-analysis-tool-nine.vercel.app/" target="_blank" class="ai-button">
-        Launch AI Tool
-    </a>
+    
+    <!-- Launch Button -->
+    <button class="ai-button" onclick="openTool()">Launch AI Tool</button>
+    
+    <!-- Hidden iframe that loads your Vercel app -->
+    <div id="tool-container" style="display:none; margin-top:30px;">
+        <iframe 
+            id="tool-frame" 
+            style="width:100%; height:800px; border:none; border-radius:20px; box-shadow:0 0 15px rgba(0,0,0,0.3);">
+        </iframe>
+    </div>
 </section>
+
+<script>
+    function openTool() {
+        document.getElementById("tool-container").style.display = "block";
+        document.getElementById("tool-frame").src = "https://data-analysis-tool-cj7q4f0x4-ambuj123-labs-projects.vercel.app";
+    }
+</script>
 
 </body>
 </html>
+                
 
                 
                 <h1 class="hero-title">The Future is Now:<br>AI-Accelerated Development</h1>
