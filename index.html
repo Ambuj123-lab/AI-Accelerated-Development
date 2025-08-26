@@ -1083,6 +1083,222 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-emoji">🚀</div>
+                <!-- Data Tool Section with Button and Modal -->
+<style>
+    /* CSS for Data Tool Section and Modal */
+    .data-tool-modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    .data-tool-modal.active {
+        display: flex;
+        opacity: 1;
+    }
+    .data-tool-modal-content {
+        background-color: #1a1a2e;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        width: 90vw;
+        height: 90vh;
+        max-width: 1200px;
+        max-height: 800px;
+        border: 1px solid #4a4a66;
+    }
+    .data-tool-close {
+        color: #aaa;
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1010;
+        transition: color 0.3s;
+    }
+    .data-tool-close:hover,
+    .data-tool-close:focus {
+        color: white;
+    }
+    .data-tool-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+    }
+    .ai-section {
+        padding: 80px 20px;
+        text-align: center;
+        background: linear-gradient(to right, #1a1a2e, #16213e);
+        border-radius: 20px;
+        margin: 40px auto;
+        max-width: 90%;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    /* Enhanced "Built By" section */
+    .built-by-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px 18px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        max-width: 300px;
+        margin: 0 auto 30px auto;
+    }
+    
+    .built-by-container:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .built-by-text {
+        color: #fff;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+    }
+    
+    .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: center;
+    }
+    
+    .tech-badge {
+        padding: 2px 8px;
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        border-radius: 12px;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 500;
+    }
+    
+    .ai-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fff;
+        margin-top: 20px;
+    }
+    .ai-section p {
+        font-size: 1.1rem;
+        color: #b0b0b0;
+        margin-bottom: 30px;
+    }
+    .ai-button {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 50px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(45deg, #ff6b6b, #ff4c4c);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(255, 76, 76, 0.4);
+    }
+    .ai-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(255, 76, 76, 0.6);
+    }
+    
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .built-by-container {
+            max-width: 280px;
+        }
+        
+        .ai-section h2 {
+            margin-top: 0;
+        }
+    }
+</style>
+
+<!-- HTML Section for the Button and Description -->
+<section class="ai-section">
+    <!-- Enhanced Built By Section -->
+    <div class="built-by-container">
+        <span class="built-by-text">Built with</span>
+        <div class="tech-stack">
+            <span class="tech-badge">NumPy</span>
+            <span class="tech-badge">Plotly</span>
+            <span class="tech-badge">Matplotlib</span>
+            <span class="tech-badge">Pandas</span>
+            <span class="tech-badge">AI</span>
+        </div>
+    </div>
+    
+    <h2>AI-Accelerated Data Tool Demo</h2>
+    <p>
+        Explore a live demo of my AI-powered data visualization and analysis tools. This application supports
+        **structured and non-structured data** from **Excel and CSV files** up to **5 MB**.
+        It is built using key data science libraries such as **NumPy, Plotly, and Matplotlib** to provide
+        streamlined insights.
+    </p>
+    <button id="showDataTool" class="ai-button">Launch AI Tool</button>
+</section>
+
+<!-- The Modal -->
+<div id="dataToolModal" class="data-tool-modal">
+    <div class="data-tool-modal-content">
+        <span class="data-tool-close">&times;</span>
+        <iframe id="dataToolIframe" class="data-tool-iframe" src=""></iframe>
+    </div>
+</div>
+
+<!-- JavaScript to Handle the Modal and Vercel URL -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('dataToolModal');
+        const btn = document.getElementById('showDataTool');
+        const span = document.getElementsByClassName("data-tool-close")[0];
+        const iframe = document.getElementById('dataToolIframe');
+
+        // Replace this URL with your actual Vercel deployment URL
+        const vercelUrl = 'https://data-analysis-tool-nine.vercel.app/'; 
+        
+        btn.onclick = function() {
+            modal.classList.add('active');
+            iframe.src = vercelUrl;
+        }
+
+        span.onclick = function() {
+            modal.classList.remove('active');
+            iframe.src = ''; // Stop loading when modal is closed
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('active');
+                iframe.src = '';
+            }
+        }
+    });
+</script>
+                
                 <h1 class="hero-title">The Future is Now:<br>AI-Accelerated Development</h1>
                 <p class="hero-author">Architected by Ambuj Kumar Tripathi | AI Solutions Engineer</p>
                 <p class="hero-subtitle">"Building Tomorrow's Solutions with Today's AI"</p>
